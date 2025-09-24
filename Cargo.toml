@@ -1,0 +1,12 @@
+# 操作系统项目的配置文件
+# 该项目专为aarch64-unknown-none-softfloat环境设计
+
+[package]
+name = "stuos"
+version = "0.1.0"
+edition = "2024"
+build = "build.rs"
+
+# 项目依赖项
+# 由于是操作系统内核，不使用外部依赖
+[dependencies]

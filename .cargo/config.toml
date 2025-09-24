@@ -1,0 +1,21 @@
+# Cargo构建工具的配置文件
+# 用于指定针对aarch64架构裸机环境的特殊配置
+
+# 构建配置部分
+[build]
+# 指定目标平台为aarch64裸机软浮点环境
+# 这是一个专门为没有操作系统的ARM64处理器设计的编译目标
+target = "aarch64-unknown-none-softfloat"
+
+# 链接器配置
+[target.aarch64-unknown-none-softfloat]
+# 指定链接脚本
+rustflags = ["-C", "link-arg=-Tlinker.ld"]
+
+# 不稳定特性配置部分
+[unstable]
+# 启用build-std特性，允许我们为裸机环境构建标准库的核心组件
+# 区别说明：
+# 添加此配置：Cargo会自动构建core和compiler_builtins，适用于no_std环境
+# 不添加此配置：Cargo不会自动构建标准库组件，需要手动处理依赖
+build-std = ["core", "compiler_builtins"]
