@@ -8,5 +8,5 @@ edition = "2024"
 build = "build.rs"
 
 # 项目依赖项
-# 由于是操作系统内核，不使用外部依赖
 [dependencies]
+log = "=0.4.21"

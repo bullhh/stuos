@@ -3,17 +3,12 @@
 // 这是一个为aarch64-unknown-none-softfloat环境设计的简单操作系统内核
 // 该内核不依赖标准库，在裸机环境下运行
 mod lang_items;
+#[macro_use]
+mod print;
 
 // 声明外部汇编入口点
 unsafe extern "C" {
     unsafe fn _start_asm();
-}
-
-/// 一个简单的输出函数，用于在QEMU中显示信息
-/// 这里我们使用一个简化的实现来输出字符
-unsafe fn print_str(_s: &str) {
-    // 在实际的操作系统中，这里会是更复杂的串口输出实现
-    // 目前我们只是简单地进入循环，但在真实环境中会输出字符串
 }
 
 /// Rust主入口点
@@ -24,11 +19,9 @@ pub extern "C" fn kernel_main() -> ! {
     // 操作系统初始化和主循环
     // 在这里可以添加硬件初始化、内存管理等核心功能
     
-    // 输出启动信息
-    unsafe {
-        print_str("StuOS kernel started successfully!\n");
-        print_str("Entering main loop...\n");
-    }
+    // 使用新的打印宏输出启动信息
+    println!("StuOS kernel started successfully!");
+    println!("Entering main loop...");
     
     // 为了演示，我们简单地进入一个无限循环
     // 在实际的操作系统中，这里会是更复杂的逻辑
@@ -38,9 +31,9 @@ pub extern "C" fn kernel_main() -> ! {
         counter += 1;
         
         // 每1000000次循环输出一次信息（模拟简单的调度）
-        if counter % 1000000 == 0 {
-            // 在实际实现中，这里会输出计数信息
-            // 但由于我们没有实现完整的串口输出，暂时只循环
+        if counter % 1000000 == 0 && counter < 10000000 {
+            // 使用格式化打印输出计数信息
+            println!("Kernel running, counter: {}", counter);
         }
         
         // 防止编译器优化掉这个循环
