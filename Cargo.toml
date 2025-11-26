@@ -10,3 +10,5 @@ build = "build.rs"
 # 项目依赖项
 [dependencies]
 log = "=0.4.21"
+aarch64-cpu = "10.0"
+bitflags = "2.9"

@@ -5,6 +5,8 @@
 mod lang_items;
 #[macro_use]
 mod print;
+mod mm;
+
 
 // 声明外部汇编入口点
 unsafe extern "C" {
@@ -23,6 +25,15 @@ pub extern "C" fn kernel_main() -> ! {
     println!("StuOS kernel started successfully!");
     println!("Entering main loop...");
     
+        
+    println!("Initializing MMU...");
+    
+    // 首先初始化页表
+    unsafe { mm::boot_pt::init_boot_page_table() };
+    // 然后初始化MMU，传入页表的物理地址
+    unsafe { mm::memory::init_mmu((&raw const mm::boot_pt::BOOT_PT_L0) as usize) };
+    println!("MMU initialized");
+
     // 为了演示，我们简单地进入一个无限循环
     // 在实际的操作系统中，这里会是更复杂的逻辑
     let mut counter = 0;
@@ -39,6 +50,8 @@ pub extern "C" fn kernel_main() -> ! {
         // 防止编译器优化掉这个循环
         core::hint::spin_loop();
     }
+
+
 }
 
 /// 获取栈顶指针
