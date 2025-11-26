@@ -26,7 +26,7 @@ endif
 # QEMU配置
 # QEMU模拟器参数配置
 QEMU_ARGS := -M virt \
-			 -cpu cortex-a53 \
+			 -cpu cortex-a72 \
 			 -nographic \
 			 -kernel $(KERNEL_ELF)
 
@@ -72,6 +72,7 @@ clean:
 .PHONY: run
 run: build
 	@echo "正在QEMU中运行StuOS内核..."
+	@echo "QEMU启动参数: qemu-system-aarch64 $(QEMU_ARGS)"
 	@qemu-system-aarch64 $(QEMU_ARGS)
 
 # 在QEMU中运行内核GDB调试
