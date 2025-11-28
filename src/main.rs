@@ -91,5 +91,7 @@ pub fn test_mmu() {
 
 
     let mmu_test_value = 0x87654321u32;
+    println!("ref: {:#x}", &mmu_test_value);
+    println!("ref: {:p}", &mmu_test_value);
     println!("mmu_test_value address: 0x{:x}", &mmu_test_value as *const _ as usize);
 }
