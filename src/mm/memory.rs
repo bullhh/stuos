@@ -65,3 +65,11 @@ pub fn flush_tlb(vaddr: Option<usize>) {
         }
     }
 }
+
+pub fn virt_to_phys(vaddr: usize) -> usize {
+    vaddr - 0xFFFF_0000_0000_0000 as usize
+}
+
+pub fn phys_to_virt(paddr: usize) -> usize {
+    paddr + 0xFFFF_0000_0000_0000 as usize
+}

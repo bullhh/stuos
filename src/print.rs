@@ -5,6 +5,7 @@ use core::fmt::{self, Write};
 
 /// QEMU virt平台的UART基地址
 const UART_BASE: usize = 0x9000000;
+// const UART_BASE: usize = 0xFFFF0000_9000000;
 
 /// UART数据寄存器偏移
 const UARTDR: usize = 0x00;
